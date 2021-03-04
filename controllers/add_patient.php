@@ -18,7 +18,7 @@ class Add_patient extends CI_Controller
     {
         // Chargement lib Form Validation pour le controle de champs
         $this->load->library('form_validation');
-        // On valide chaque champ
+        // On traite et valide chaque champ
         // Alpha = que des lettres.
         $this->form_validation->set_rules("firstname", "firstname", 'required|alpha');
         $this->form_validation->set_rules("lastname", "lastname", 'required|alpha');
@@ -39,7 +39,8 @@ class Add_patient extends CI_Controller
                 "phone"     => $this->input->post("phone"),
                 "mail"     => $this->input->post("mail")
             );
-            // Si update ou insert on modifie l'uRL en conséquence
+
+
             if ($this->input->post("update")) {
                 $this->add_patient_model->update_data($data, $this->input->post("hidden_id"));
                 redirect(base_url() . "add_patient/updated");
@@ -77,6 +78,7 @@ class Add_patient extends CI_Controller
         $data["user_data"] = $this->add_patient_model->fetch_single_data($user_id);
         $data["fetch_data"] = $this->add_patient_model->fetch_data();
         $this->load->view("add_patient_view", $data);
+
     }
     public function updated()
     {
